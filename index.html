@@ -56,16 +56,94 @@
             width: 3
           },
           size: 20
+          //CHALLENGE 1 COMPLETE
         };
+
+        //Now we are going to add a popup to the point which will require me to create 2 new constructors for the popup template and the popup attributes
+        const popupTemplate = {
+            title: "{Name}",
+            content: "{Description}",
+            //content: "{Year}"
+        }
+        const attributes = {
+            Name: "Stevie Ray Vaughan Statue",
+            Description: "A bronze sculpture of Stevie Ray Vaughan by Ralph Helmick",
+            //Year: "1994"
+        }
+
+        //now we add the popupTemplate and attributes to the pointGraphic 
 
         const pointGraphic = new Graphic({    //creating a new graphic
           geometry: point,
-          symbol: simpleMarkerSymbol
+          symbol: simpleMarkerSymbol,
+
+        //this is where we add the popupTemplate and attributes to the pointGraphic
+          popupTemplate: popupTemplate,
+          attributes: attributes
         });
 
         graphicsLayer.add(pointGraphic);    //adding the point to the graphics layer
         
+      //adding both a polyline and a polygon to the map
+      // Create a polyline geometry
+      const polyline = {
+        type: "polyline",  // autocasts as new Polyline()
+        paths: [
+          [-97.750689, 30.263098], // longitude, latitude of the statue
+          [-97.6667, 30.1953]  // longitude, latitude of the Austin Texas airport
+        ]
+      };
+      
+      // Create a symbol for drawing the polyline
+      const simpleLineSymbol = {
+        type: "simple-line", // autocasts as new SimpleLineSymbol()
+        color: [226, 119, 40], // RGB color for orange
+        width: 3
+      };
+      
+      // Create a graphic and add the geometry and symbol to it
+      const polylineGraphic = new Graphic({
+        geometry: polyline,
+        symbol: simpleLineSymbol
+      });
+      
+      graphicsLayer.add(polylineGraphic); // Add the polyline graphic to the graphics layer
+      
+      // Create a polygon geometry
+      const polygon = {
+        type: "polygon",  // autocasts as new Polygon()
+        rings: [
+          [-97.6767, 30.1853], // longitude, latitude of the new point
+          [-97.6767, 30.2053], // longitude, latitude of a point north of the new point
+          [-97.6567, 30.2053], // longitude, latitude of a point northeast of the new point
+          [-97.6567, 30.1853], // longitude, latitude of a point east of the new point
+          [-97.6767, 30.1853]  // longitude, latitude of the new point
+        ]
+      };
+      
+      // Create a symbol for drawing the polygon
+      const simpleFillSymbol = {
+        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+        color: [227, 139, 79, 0.5], // Orange, semi-transparent
+        outline: {
+          color: [255, 255, 255],
+          width: 1
+        }
+      };
+      
+      // Create a graphic and add the geometry and symbol to it
+      const polygonGraphic = new Graphic({
+        geometry: polygon,
+        symbol: simpleFillSymbol
+      });
+      
+      graphicsLayer.add(polygonGraphic); // Add the polygon graphic to the graphics layer
+    
+      //CHALLENGE 2 COMPLETE
 
+      //These points, polyline, and polygon are all added to the graphics layer, which is then added to the map.
+      //they are all done in the same way as the point, with the exception of the polyline and polygon having more than one point in their geometry.
+    
     });
   </script>
 
