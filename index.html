@@ -49,12 +49,19 @@
 
         const simpleMarkerSymbol = {
           type: "simple-marker",
-          color: [226, 119, 40], // Orange
+          color: [128, 0, 32], // Burgundy
           outline: {
             color: [255, 255, 255], // White
             width: 1
           }
         };
+
+        const pointGraphic = new Graphic({    //creating a new graphic
+          geometry: point,
+          symbol: simpleMarkerSymbol
+        });
+
+        graphicsLayer.add(pointGraphic);    //adding the point to the graphics layer
         
 
     });
