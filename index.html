@@ -14,10 +14,14 @@
   <script>
   
     require([
-     "esri/config",   //just checking to make sure changes can be made and updated
+     "esri/config",   //just checking to make sure changes can be made and updatedgit config --global user.name "Your Name"
       "esri/Map",
-      "esri/views/MapView"
-    ], function (esriConfig,Map, MapView) {
+      "esri/views/MapView",
+
+//adding in graphics and graphics layer
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer"
+    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer) {
 
       esriConfig.apiKey = "AAPK92af26d9842a48ccb552c0ae5e32b5ceJiMRXou8m248fRCfrZyuCLLaXmyktnHdb2BWly3eHgL4zpiJpIXKmteMHEg8TE6w";
       const map = new Map({
@@ -30,6 +34,13 @@
           zoom: 13, // Zoom level
           container: "viewDiv" // Div element
         });
+
+        //adding a constructor for the graphics layer
+        const graphicsLayer = new GraphicsLayer();
+        map.add(graphicsLayer); //adding the graphics layer to the map thanks to copilot 
+
+        //no points and lines yet, but we will add them soon and are simply setting up the graphics layer for now
+
     });
   </script>
 
