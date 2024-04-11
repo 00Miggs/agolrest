@@ -49,12 +49,13 @@
 
         const simpleMarkerSymbol = {
           type: "simple-marker",
-          style: "cross",     //cross style     
-          color: [128, 0, 32], // Burgundy
+          style: "x",     //cross style, other styles include circle, diamond, square, triangle, and x  
+          color: [128, 0, 32], // Burgundy  //looking at the simplemarker documentation, I see that you can't change the color of the cross or x, so I'm going to change the color of the outline
           outline: {
-            color: [255, 255, 255], // White
-            width: 1
-          }
+            color: [255, 105, 180], // Pink//color: [0, 0, 0], // White
+            width: 3
+          },
+          size: 20
         };
 
         const pointGraphic = new Graphic({    //creating a new graphic
