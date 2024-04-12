@@ -243,6 +243,17 @@
             "content": "<b>Name:</b> {Fac_Name }<br><b>City:</b> {City }<br><b>State:</b> {State_Name }<br>"
           }
 
+          const airportRenderer = {
+              "type": "simple",
+              "symbol": {
+                "type": "picture-marker",
+                "url": "https://00Miggs.github.io/agol/outline_local_airport_black_24dp.png",
+                "width": "18px",
+                "height": "18px"
+              }
+            }
+
+
           //adding the Const for the feature layer
           const AirportLayer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/UnitedStates_Airports/FeatureServer",
@@ -250,10 +261,12 @@
           //adding the popup here
           outFields: ["Fac_Name ","City ","State_Name "],
           popupTemplate: popupAirports,
+          renderer: airportRenderer // add the renderer to the layer
           });
 
           map.add(AirportLayer);
 
+          
 
     });
   </script>
