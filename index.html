@@ -274,6 +274,20 @@
             }
           };
 
+          //adding the Const for the feature layer
+          const AirportLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/UnitedStates_Airports/FeatureServer",
+
+          //adding the popup here
+          outFields: ["Fac_Name ","City ","State_Name "],
+          popupTemplate: popupAirports,
+          renderer: airportRenderer, // add the renderer to the layer
+          definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+          labelingInfo: [airportLabels], //adding the labels to the airports
+          
+          });
+
+          // Define a pop-up for HeliportLayer
           const heliportRenderer = {
               "type": "simple",
               "symbol": {
@@ -284,23 +298,19 @@
               }
             }
 
-          //adding the Const for the feature layer
-          const AirportLayer = new FeatureLayer({
+          //adding the feature layer to the map of heliports
+          //procedure is the same as the airports, but with a different variable name
+          const HeliportLayer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/UnitedStates_Airports/FeatureServer",
-
-          //CHALLENGE 5 COMPLETE
-
-          //adding the popup here
-          outFields: ["Fac_Name ","City ","State_Name "],
-          popupTemplate: popupAirports,
-          renderer: airportRenderer, // add the renderer to the layer
-          definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
-          labelingInfo: [airportLabels], //adding the labels to the airports
+          
           renderer: heliportRenderer, // add the renderer to the layer
           definitionExpression: "Fac_Type = 'HELIPORT'" //adding sql to filter for heliports
+          
+          //challenges 5 complete
           });
 
           map.add(AirportLayer);
+          map.add(HeliportLayer);
 
           
 
