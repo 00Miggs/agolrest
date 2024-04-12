@@ -20,8 +20,11 @@
 
 //adding in graphics and graphics layer
       "esri/Graphic",
-      "esri/layers/GraphicsLayer"
-    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer) {
+      "esri/layers/GraphicsLayer",
+
+//adding in feature layers for rest
+    "esri/layers/FeatureLayer",
+    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
 
       esriConfig.apiKey = "AAPK92af26d9842a48ccb552c0ae5e32b5ceJiMRXou8m248fRCfrZyuCLLaXmyktnHdb2BWly3eHgL4zpiJpIXKmteMHEg8TE6w";
       const map = new Map({
@@ -144,6 +147,25 @@
       //These points, polyline, and polygon are all added to the graphics layer, which is then added to the map.
       //they are all done in the same way as the point, with the exception of the polyline and polygon having more than one point in their geometry.
     
+      // Define a pop-up for usaeduLayer
+          const popupEduusa = {
+            "title": "EDUs",
+            "content": "<b>Name:</b> {NAME}<br><b>Total Enrollment:</b> {TOT_ENROLL}<br>"
+          }
+
+          //adding the Const for the feature layer
+          const usaeduLayer = new FeatureLayer({
+          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+
+          //adding the popup here
+          outFields: ["NAME","TOT_ENROLL"],
+          popupTemplate: popupEduusa
+          
+          });
+
+          //adding the feature layer to the map
+          map.add(usaeduLayer);
+
     });
   </script>
 
