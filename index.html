@@ -153,14 +153,57 @@
             "content": "<b>Name:</b> {INSTNM }<br><b>Total Enrollment:</b> {INSTSIZE }<br>"
           }
 
+          const symbol = {
+            type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+            color: [226, 119, 40],
+            outline: {
+              color: [255, 255, 255],
+              width: 1
+            }
+          };
+
+          // Define a renderer with the SimpleMarkerSymbol and visual variables
+          const renderer = {
+            type: "simple", // autocasts as new SimpleRenderer()
+            symbol: symbol,
+            visualVariables: [
+              {
+                type: "size",
+                field: "INSTSIZE", // use the INSTSIZE field
+                stops: [
+                  {
+                    value: 500,
+                    size: "10px"
+                  },
+                  {
+                    value: 1000,
+                    size: "20px"
+                  },
+                  {
+                    value: 5000,
+                    size: "30px"
+                  },
+                  {
+                    value: 10000,
+                    size: "40px"
+                  },
+                  {
+                    value: 20000,
+                    size: "50px"
+                  }
+                ]
+              }
+            ]
+          };
+
           //adding the Const for the feature layer
           const usaeduLayer = new FeatureLayer({
           url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
 
           //adding the popup here
           outFields: ["INSTNM ","INSTSIZE "],
-          popupTemplate: popupEduusa
-
+          popupTemplate: popupEduusa,
+          renderer: renderer // add the renderer to the layer
           });
 
           //adding the feature layer to the map
