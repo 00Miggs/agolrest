@@ -274,17 +274,30 @@
             }
           };
 
+          const heliportRenderer = {
+              "type": "simple",
+              "symbol": {
+                "type": "picture-marker",
+                "url": "https://00Miggs.github.io/agol/helicopter.png",
+                "width": "18px",
+                "height": "18px"
+              }
+            }
 
           //adding the Const for the feature layer
           const AirportLayer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/UnitedStates_Airports/FeatureServer",
+
+          //CHALLENGE 5 COMPLETE
 
           //adding the popup here
           outFields: ["Fac_Name ","City ","State_Name "],
           popupTemplate: popupAirports,
           renderer: airportRenderer, // add the renderer to the layer
           definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
-          labelingInfo: [airportLabels] //adding the labels to the airports
+          labelingInfo: [airportLabels], //adding the labels to the airports
+          renderer: heliportRenderer, // add the renderer to the layer
+          definitionExpression: "Fac_Type = 'HELIPORT'" //adding sql to filter for heliports
           });
 
           map.add(AirportLayer);
