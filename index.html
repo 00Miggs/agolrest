@@ -237,6 +237,22 @@
 
           //CHALLENGE 3 COMPLETE
 
+          // Define a pop-up for USAirportsLayer
+          const popupAirports = {
+            "title": "USA Airports",
+            "content": "<b>Name:</b> {Fac_Name }<br><b>City:</b> {City }<br><b>State:</b> {State_Name }<br>"
+          }
+
+          //adding the Const for the feature layer
+          const AirportLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/UnitedStates_Airports/FeatureServer",
+
+          //adding the popup here
+          outFields: ["Fac_Name ","City ","State_Name "],
+          popupTemplate: popupAirports,
+          });
+
+
     });
   </script>
 
