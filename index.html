@@ -261,7 +261,8 @@
           //adding the popup here
           outFields: ["Fac_Name ","City ","State_Name "],
           popupTemplate: popupAirports,
-          renderer: airportRenderer // add the renderer to the layer
+          renderer: airportRenderer, // add the renderer to the layer
+          definitionExpression: "Fac_Type = 'AIRPORT'" //adding sql to filter for airports
           });
 
           map.add(AirportLayer);
