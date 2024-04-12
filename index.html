@@ -150,7 +150,7 @@
       // Define a pop-up for usaeduLayer
           const popupEduusa = {
             "title": "EDUs",
-            "content": "<b>Name:</b> {INSTNM }<br><b>Total Enrollment:</b> {INSTSIZE }<br>"
+            "content": "<b>Name:</b> {INSTNM }<br><b>Total Enrollment:</b> {INSTSIZE }<br><b>Web Address:</b> {WEBADDR }"// we are going to add the web address of each school here as well
           }
 
           const symbol = {
@@ -227,13 +227,15 @@
           url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
 
           //adding the popup here
-          outFields: ["INSTNM ","INSTSIZE "],
+          outFields: ["INSTNM ","INSTSIZE ","WEBADDR "],
           popupTemplate: popupEduusa,
           renderer: renderer // add the renderer to the layer
           });
 
           //adding the feature layer to the map
           map.add(usaeduLayer);
+
+          //CHALLENGE 3 COMPLETE
 
     });
   </script>
