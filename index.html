@@ -24,7 +24,11 @@
 
 //adding in feature layers for rest
     "esri/layers/FeatureLayer",
-    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer) {
+
+    //adding in esri widget editor
+    "esri/widgets/Editor"
+
+    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor) {
 
       esriConfig.apiKey = "AAPK92af26d9842a48ccb552c0ae5e32b5ceJiMRXou8m248fRCfrZyuCLLaXmyktnHdb2BWly3eHgL4zpiJpIXKmteMHEg8TE6w";
       const map = new Map({
@@ -312,8 +316,18 @@
           map.add(AirportLayer);
           map.add(HeliportLayer);
 
+          //adding the const for the feature layer
+          const myAirports = new FeatureLayer({
+          url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Brandon_Airports/FeatureServer",
           
+          //adding the popup here
+          outFields: ["AirportCode"],
 
+          });
+
+          //adding the feature layer to the map
+          map.add(myAirports);
+          
     });
   </script>
 
