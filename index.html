@@ -327,7 +327,22 @@
           });
 
           //adding the feature layer to the map
-          map.add(myAirports);
+          map.add(myAirports); //at this time nothing will display in the popup, but the feature layer is added to the map
+
+          //adding editor widget
+          // Set the point layer's LayerInfo
+          const pointInfos = {
+            layer: myAirports
+          }
+
+          // Begin Editor constructor
+          const editor = new Editor({
+            view: view,
+            layerInfos: [pointInfos]
+          }); // End Editor constructor
+
+          // Add the widget to the view
+          view.ui.add(editor, "top-right");
           
     });
   </script>
