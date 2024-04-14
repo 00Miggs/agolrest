@@ -26,9 +26,12 @@
     "esri/layers/FeatureLayer",
 
     //adding in esri widget editor
-    "esri/widgets/Editor"
+    "esri/widgets/Editor",
 
-    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor) {
+    //now adding a legend widget
+    "esri/widgets/Legend"
+
+    ], function (esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {
 
       esriConfig.apiKey = "AAPK92af26d9842a48ccb552c0ae5e32b5ceJiMRXou8m248fRCfrZyuCLLaXmyktnHdb2BWly3eHgL4zpiJpIXKmteMHEg8TE6w";
       const map = new Map({
@@ -316,14 +319,51 @@
           map.add(AirportLayer);
           map.add(HeliportLayer);
 
+          //CHALLENGE 1 for WRITE JS -- CHANGING ICON TO MY PASSPORT PNG
+          // Define the picture marker symbol to render points
+          const myAirportsSymbol = {
+            type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+            url: "passport.png",
+            width: "18px",
+            height: "18px"
+          };
+
+          // Define a renderer using the picture marker symbol
+          const myAirportsRenderer = {
+            type: "simple",  // autocasts as new SimpleRenderer()
+            symbol: myAirportsSymbol  //changing the symbol to the one I uploaded complete!
+          };
+
+          //Now we need a label for the airports
+          //const to make the airport labels similar to the ones above
+          const myAirportLabels = {
+            symbol: {
+              type: "text",
+              color: "#FFFFFF",
+              haloColor: "#00008B",
+              haloSize: "2px",
+              font: {
+                size: "12px",
+                family: "Noto Sans",
+                style: "italic",
+                weight: "normal"
+              }
+            },
+            labelPlacement: "above-center",
+            labelExpressionInfo: {
+              expression: "$feature.AirportCode"
+            }
+          };
+
 
           //adding the const for the feature layer
           const myAirports = new FeatureLayer({
-          url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Brandon_Airports/FeatureServer",
-          
-          //adding the popup here
-          outFields: ["AirportCode"],   //at the time of inserting this code, the feature layer only has the airport code as an attribute but has nothing to display
-
+            url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Brandon_Airports/FeatureServer",
+            
+            //adding the popup here
+            outFields: ["AirportCode"],   //at the time of inserting this code, the feature layer only has the airport code as an attribute but has nothing to display
+            renderer: myAirportsRenderer, // add the renderer to the layer
+            labelingInfo: [myAirportLabels] //adding the labels to the airports
           });
 
           //adding the feature layer to the map
@@ -343,6 +383,35 @@
 
           // Add the widget to the view
           view.ui.add(editor, "top-right");
+
+          //Finally, we add a legend widget to the map
+
+          // Create a new Legend instance and add it to the view's UI
+          const legend = new Legend({
+            view: view,
+            layerInfos: [
+              {
+                layer: usaeduLayer,
+                title: "Colleges and Universities"    //learned a way to customize this layer to change the values given in the legend with proper values from the feature layer
+                                                      //but for the sake of time, I'm going to leave it as is
+              },
+              {
+                layer: AirportLayer,
+                title: "Airports"
+              },
+              {
+                layer: HeliportLayer,
+                title: "Heliports"
+              },
+              {
+                layer: myAirports,
+                title: "My Airports"
+              }
+            ]  // Start with an empty array, you can add layers later
+          });
+          
+          // Add the legend to the bottom right of the view
+          view.ui.add(legend, "bottom-right");
           
     });
   </script>
